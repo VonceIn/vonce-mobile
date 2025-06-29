@@ -5,7 +5,7 @@ import InputText from '@/components/InputText';
 import Button from '@/components/Button';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function login() {
+export default function signup() {
     const router = useRouter();
 
     return (
@@ -30,7 +30,7 @@ export default function login() {
 
                     <InputText placeholder='Password' />
 
-                    <Button text='Log In' />
+                    <Button text='Sign Up' />
                 </View>
 
                 <View className='w-[220px] items-center justify-center h-max mt-20'>
