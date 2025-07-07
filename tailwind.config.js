@@ -8,13 +8,10 @@ module.exports = {
             colors: {
                 primary: '#fff7eb',
                 secondary: '#ff5757',
-                light: {
-                    100: '#D6C6FF',
-                    200: '#A8B5DB',
-                    300: '#9CA4AB'
-                },
+                light: '#F5F2F2',
                 accent: '#AB8BFF',
-                dark: '#181922',
+                dark: '#171212',
+                brown: '#856666'
             },
             fontFamily: {
                 telegraf: ['Telegraf'],
@@ -23,5 +20,5 @@ module.exports = {
             },
         },
     },
-  plugins: [],
+    plugins: [],
 }

@@ -9,12 +9,12 @@ export default function AuthLayout() {
                 <Stack.Screen name="login" options={{ 
                         headerShown: false,
                         title: 'Login'
-                    }} 
+                    }}
                 />
                 <Stack.Screen name="signup" options={{ 
                         headerShown: false,
                         title: 'Sign Up'
-                    }} 
+                    }}
                 />
                 <Stack.Screen 
                     name="forgotPassword" 
@@ -26,8 +26,9 @@ export default function AuthLayout() {
                         },
                         headerShadowVisible: false,
                         headerTitleStyle: {
-                            fontWeight: 'bold', // or 'normal', '600', etc.
+                            fontWeight: 700,
                             fontSize: 18,
+                            fontFamily: 'fontFam-Jakarta700'
                         },
                     }} 
                 />

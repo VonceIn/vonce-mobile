@@ -68,6 +68,38 @@ html, body {
         z-index: 1;
         animation: none !important;
     }
+
+    .fontFam-Ubuntu300 {
+        font-family: Ubuntu300;
+    }
+
+    .fontFam-Ubuntu400 {
+        font-family: Ubuntu400;
+    }
+
+    .fontFam-Ubuntu500 {
+        font-family: Ubuntu500;
+    }
+
+    .fontFam-Ubuntu700 {
+        font-family: Ubuntu700;
+    }
+
+    .fontFam-Jakarta300 {
+        font-family: PlusJakarta300;
+    }
+
+    .fontFam-Jakarta400 {
+        font-family: PlusJakarta400;
+    }
+
+    .fontFam-Jakarta500 {
+        font-family: PlusJakarta500;
+    }
+
+    .fontFam-Jakarta700 {
+        font-family: PlusJakarta700;
+    }
 }
 
 /* app/globals.css */
@@ -103,4 +135,3 @@ html, body {
     font-weight: normal;
     font-style: normal;
 }
-

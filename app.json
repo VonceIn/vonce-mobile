@@ -1,15 +1,22 @@
 {
   "expo": {
-    "name": "vonce-mobile",
-    "slug": "vonce-mobile",
+    "name": "vonce",
+    "slug": "vonce",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "voncemobile",
+    "scheme": "vonce",
+    "owner": "himanshunani",
+    "platforms": ["ios", "android", "web"],
+    "deepLinking": true,
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "DEV_API_URL": "http://192.168.1.100:3000",
+      "PROD_API_URL": "https://voncebackend.vercel.app"
     },
     "android": {
       "adaptiveIcon": {
