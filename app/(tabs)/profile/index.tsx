@@ -16,8 +16,8 @@ const ProfileScreen = () => {
     const year = new Date(profile.created_at).getFullYear();
 
     return (
-        <SafeAreaView className='w-full h-full bg-primary px-[16px]'>
-            <View className='items-center justify-center w-full h-max gap-[16px]'>
+        <View className='w-full h-full bg-primary px-[16px] pt-4'>
+            <View className='items-center justify-center w-full h-max gap-[20px]'>
                 {profile.avatar == 'default' ? (
                     <Image 
                         source={require('../../../assets/images/default_profile_male.png')}
@@ -25,10 +25,14 @@ const ProfileScreen = () => {
                         className="w-[128px] h-[128px] rounded-full"
                     />
                 ) : (
-                    null // Load Matched Persons Avatar
+                    <Image 
+                        source={{ uri: profile.avatar }}
+                        resizeMode="contain"
+                        className="w-[128px] h-[128px] rounded-full"
+                    />
                 )}
 
-                <View className='items-center'>
+                <View className='items-center gap-1'>
                     <Text className='fontFam-Jakarta700 text-[22px] text-dark'>
                     {profile.full_name}
                     </Text>
@@ -95,7 +99,7 @@ const ProfileScreen = () => {
                     </Button>
                 </View>
             </View>
-        </SafeAreaView>
+        </View>
     );
 }
 

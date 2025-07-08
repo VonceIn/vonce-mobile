@@ -17,6 +17,11 @@ interface ProfileType {
 };
 
 export const isAuthenticatedAtom = atom(false);
+
 export const userIdAtom = atom<null | string>();
+
 export const userProfileAtom = atom<ProfileType | null>();
+
 export const sessionProcessedAtom = atom(false);
+
+// export const profilePhotoUrlAtom = atom('default');

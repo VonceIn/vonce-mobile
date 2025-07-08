@@ -30,7 +30,7 @@ export default function HomeScreen() {
                         className="w-[270px] h-[270px] rounded-full"
                     />
                 ) : (
-                    null // Load Matched Persons Avatar
+                    null
                 )}
 
                 <View 
