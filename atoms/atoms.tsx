@@ -16,6 +16,13 @@ interface ProfileType {
     bio: string;
 };
 
+interface MatchType  {
+    id: string;
+    user1_id: string;
+    user2_id: string;
+    create_at: string;
+};
+
 export const isAuthenticatedAtom = atom(false);
 
 export const userIdAtom = atom<null | string>();
@@ -24,4 +31,4 @@ export const userProfileAtom = atom<ProfileType | null>();
 
 export const sessionProcessedAtom = atom(false);
 
-// export const profilePhotoUrlAtom = atom('default');
+export const matchAtom = atom<MatchType>();
