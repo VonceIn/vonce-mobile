@@ -1,10 +1,11 @@
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { Text, TouchableOpacity, Modal } from 'react-native';
 import React, { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAtomValue } from 'jotai';
 import { userIdAtom, userProfileAtom } from '@/atoms/atoms';
 import { supabase } from '@/lib/supabase';
+import { API_URL } from '@/utils/backendUrl';
 
 const Debug = () => {
     const [visible, setVisible] = useState(false);
@@ -31,7 +32,20 @@ const Debug = () => {
         } catch (err) {
             console.error('❌ Error clearing AsyncStorage:', err);
         }
-    }
+    };
+
+    const testMatchUsersEdge = async () => {
+        const res = await fetch(`${API_URL}/api/match-users-edge-test`);
+        const json = await res.json();
+
+        if (!res.ok) {
+            console.error(json.error);
+            console.log(json);
+            return;
+        }
+
+        console.log(json.data);
+    };
 
     return (
         <>
@@ -73,6 +87,10 @@ const Debug = () => {
 
                     <TouchableOpacity onPress={async() => await supabase.auth.signOut()} className='bg-secondary p-4 rounded-xl'>
                         <Text className='text-primary'>Sign Out</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={testMatchUsersEdge} className='bg-secondary p-4 rounded-xl'>
+                        <Text className='text-primary'>Test Edge Function</Text>
                     </TouchableOpacity>
                 </SafeAreaView>
             </Modal>

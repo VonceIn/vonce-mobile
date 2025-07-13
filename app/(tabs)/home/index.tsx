@@ -10,29 +10,27 @@ import { supabase } from "@/lib/supabase";
 
 export default function HomeScreen() {
     const profile = useAtomValue(userProfileAtom);
-    if (!profile) return null;
-
     const [status, setStatus] = useState<'matched' | 'searching' | 'idle'>('idle');
 
     // Heartbeat function which only runs when status is 'searching' and updated last_seen-at every 5 seconds
-    useEffect(() => {
-        if (status !== 'searching') return;
+    // useEffect(() => {
+    //     if (status !== 'searching') return;
 
-        const interval = setInterval(async () => {
-            await supabase
-                .from('match_queue')
-                .update({ last_seen_at: new Date().toISOString() })
-                .eq('user_id', profile.id);
-        }, 5000);
+    //     const interval = setInterval(async () => {
+    //         await supabase
+    //             .from('match_queue')
+    //             .update({ last_seen_at: new Date().toISOString() })
+    //             .eq('user_id', profile?.id);
+    //     }, 5000);
 
-        return () => clearInterval(interval);
-    }, [status, profile.id]);
+    //     return () => clearInterval(interval);
+    // }, [status, profile?.id]);
 
     const makeMatchQueueEntry = async () => {
         const { error } = await supabase
             .from('match_queue')
             .insert({
-                user_id: profile.id
+                user_id: profile?.id
             });
 
         if (error) {
@@ -48,7 +46,7 @@ export default function HomeScreen() {
         const { error } = await supabase
             .from('match_queue')
             .delete()
-            .eq('user_id', profile.id);
+            .eq('user_id', profile?.id);
 
         if (error) {
             Alert.alert('An Error Has Occured', 'Please Try Again!');
@@ -58,6 +56,8 @@ export default function HomeScreen() {
 
         return true;
     };
+
+    if (!profile) return null;
 
     return (
         <SafeAreaView className="bg-primary flex-1 items-center justify-center gap-10 pt-10">

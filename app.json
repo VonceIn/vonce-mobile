@@ -15,7 +15,7 @@
       "supportsTablet": true
     },
     "extra": {
-      "DEV_API_URL": "http://192.168.1.100:3000",
+      "DEV_API_URL": "http://192.168.1.101:3000",
       "PROD_API_URL": "https://voncebackend.vercel.app"
     },
     "android": {

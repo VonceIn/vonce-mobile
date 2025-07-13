@@ -92,7 +92,7 @@ const ProfileSetup = () => {
         } finally {
             setIsUploading(false);
         }
-    }
+    };
 
     const updateProfile = async () => {
         try {
@@ -123,7 +123,7 @@ const ProfileSetup = () => {
         } catch(e) {
             Alert.alert('Error', 'Something went wrong.');
         }
-    }
+    };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
