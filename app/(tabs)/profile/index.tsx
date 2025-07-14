@@ -1,6 +1,5 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Button from '@/components/Button';
 import Feather from '@expo/vector-icons/Feather';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -8,6 +7,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Link } from 'expo-router';
 import { userProfileAtom } from '@/atoms/atoms';
 import { useAtomValue } from 'jotai';
+import { supabase } from '@/lib/supabase';
 
 const ProfileScreen = () => {
     const profile = useAtomValue(userProfileAtom);
@@ -95,6 +95,20 @@ const ProfileScreen = () => {
 
                         <Text className='fontFam-Jakarta400 text-[16px] text-dark'>
                             Feedback
+                        </Text>
+                    </Button>
+
+                    <Button
+                        buttonClassName='bg-transparent flex-row justify-start rounded-none gap-[10px]'
+                        textClassName='text-secondary text-[18px] fontFam-Ubuntu700' 
+                        onPress={async() => await supabase.auth.signOut()}
+                    >
+                        <View  className='bg-[#F5F2F2] size-[40px] items-center justify-center rounded-[8px]'>
+                            <MaterialIcons name="logout" size={24} color="black" />
+                        </View>
+
+                        <Text className='fontFam-Jakarta400 text-[16px] text-dark'>
+                            Sign Out
                         </Text>
                     </Button>
                 </View>

@@ -20,11 +20,14 @@ export function useMatchLitstener({
                 {
                     event: 'INSERT',
                     schema: 'public',
-                    table: 'matches',
-                    filter: `user1_id=eq.${userId},user2_id=eq.${userId}`
+                    table: 'matches'
                 },
                 (payload) => {
                     const match = payload.new;
+                    if (match.user1_id !== userId && match.user2_id !== userId) {
+                        return;
+                    }
+
                     console.log('Match Found!', match);
                     onMatchFound(match);
                 }

@@ -16,7 +16,7 @@ interface ProfileType {
     bio: string;
 };
 
-interface MatchType  {
+export interface MatchType  {
     id: string;
     user1_id: string;
     user2_id: string;
@@ -29,6 +29,8 @@ export const userIdAtom = atom<null | string>();
 
 export const userProfileAtom = atom<ProfileType | null>();
 
+export const otherProfileAtom = atom<ProfileType | null>();
+
 export const sessionProcessedAtom = atom(false);
 
-export const matchAtom = atom<MatchType>();
+export const matchAtom = atom<MatchType | null>(null);

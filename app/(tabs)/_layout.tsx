@@ -54,7 +54,7 @@ export default function TabsLayout() {
                 }}
             >
                 <Tabs.Screen 
-                    name="home/index"
+                    name="(home)/index"
                     options={{
                         headerShown: false,
                         tabBarIcon: ({ focused }) => (

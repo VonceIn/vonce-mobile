@@ -1,6 +1,6 @@
-import { userProfileAtom } from "@/atoms/atoms";
+import { matchAtom, otherProfileAtom, userProfileAtom } from "@/atoms/atoms";
 import Button from "@/components/Button";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,12 +11,59 @@ import { useMatchLitstener } from "@/hooks/useMatchListener";
 
 export default function HomeScreen() {
     const profile = useAtomValue(userProfileAtom);
+    const [otherProfile, setOtherProfile] = useAtom(otherProfileAtom);
     const [status, setStatus] = useState<'matched' | 'searching' | 'idle'>('idle');
+    const [match, setMatch] = useAtom(matchAtom);
+
+    useEffect(() => {
+        async function getMatch() {
+            const { data: matches, error } = await supabase
+                .from('matches')
+                .select('*')
+                .or(`user1_id.eq.${profile!.id},user2_id.eq.${profile!.id}`)
+
+            if (error) {
+                console.error('Error occured in trying to fetch a match', error);
+                return;
+            }
+
+            if (!matches.length) {
+                return;
+            }
+
+            const currentMatch = matches[0];
+
+            const otherUserId = currentMatch.user1_id === profile?.id ? currentMatch.user2_id : currentMatch.user1_id;
+
+            const { data: otherProfile, error: otherProfileError } = await supabase
+                .from('profiles')
+                .select('*')
+                .eq('id', otherUserId)
+                .single();
+
+            if (error) {
+                console.error('Error occured in trying to fetch other profile', error);
+                return;
+            }
+
+            if (!otherProfile) {
+                return;
+            }
+
+            setMatch(currentMatch);
+            setOtherProfile(otherProfile);
+            setStatus('matched');
+        }
+
+        getMatch();
+    }, []); // In future move this as a function to useSupabaseSession hook and make status as an atom instead of useState
 
     useMatchLitstener({
         userId: profile!.id,
         enabled: status === 'searching',
         onMatchFound: (match) => {
+            setMatch(match);
+            console.log(match);
             setStatus('matched');
         }
     });
@@ -138,15 +185,19 @@ export default function HomeScreen() {
                         </Text>
                     </View>
 
-                    <View className="w-max h-max">
-                        {profile.avatar == 'default' ? (
+                    <View className="w-max h-max items-center">
+                        {otherProfile?.avatar == 'default' ? (
                             <Image 
                                 source={require('../../../assets/images/default_profile_male.png')}
                                 resizeMode="contain"
                                 className="w-[270px] h-[270px] rounded-full"
                             />
                         ) : (
-                            null
+                            <Image 
+                                source={{ uri: otherProfile?.avatar }}
+                                resizeMode="contain"
+                                className="w-[270px] h-[270px] rounded-full"
+                            />
                         )}
 
                         <View 
@@ -161,19 +212,14 @@ export default function HomeScreen() {
                         >
                             <View className="min-w-[175px] min-h-[40px] items-center justify-center">
                                 <Text className="fontFam-Ubuntu700 text-[32px] text-wrap text-center">
-                                    Liam
+                                    {otherProfile?.full_name}
                                 </Text>
                             </View>
 
                             <View className="w-[239px] max-h-[60px]">
                                 <ScrollView>
                                     <Text className="fontFam-Ubuntu400 text-[16px] text-center">
-                                        Software Engineer - Google,
-                                        Loves Movies
-                                        Aspiring Entrepreneur
-                                        Software Engineer - Google,
-                                        Loves Movies
-                                        Aspiring Entrepreneur
+                                        {otherProfile?.bio}
                                     </Text>
                                 </ScrollView>
                             </View>
