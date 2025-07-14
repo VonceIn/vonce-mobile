@@ -44,7 +44,7 @@ const Debug = () => {
             return;
         }
 
-        console.log(json.data);
+        console.log(json);
     };
 
     return (

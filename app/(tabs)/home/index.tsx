@@ -7,24 +7,33 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import LottieView from 'lottie-react-native';
 import * as Animatable from 'react-native-animatable';
 import { supabase } from "@/lib/supabase";
+import { useMatchLitstener } from "@/hooks/useMatchListener";
 
 export default function HomeScreen() {
     const profile = useAtomValue(userProfileAtom);
     const [status, setStatus] = useState<'matched' | 'searching' | 'idle'>('idle');
 
+    useMatchLitstener({
+        userId: profile!.id,
+        enabled: status === 'searching',
+        onMatchFound: (match) => {
+            setStatus('matched');
+        }
+    });
+
     // Heartbeat function which only runs when status is 'searching' and updated last_seen-at every 5 seconds
-    // useEffect(() => {
-    //     if (status !== 'searching') return;
+    useEffect(() => {
+        if (status !== 'searching') return;
 
-    //     const interval = setInterval(async () => {
-    //         await supabase
-    //             .from('match_queue')
-    //             .update({ last_seen_at: new Date().toISOString() })
-    //             .eq('user_id', profile?.id);
-    //     }, 5000);
+        const interval = setInterval(async () => {
+            await supabase
+                .from('match_queue')
+                .update({ last_seen_at: new Date().toISOString() })
+                .eq('user_id', profile?.id);
+        }, 5000);
 
-    //     return () => clearInterval(interval);
-    // }, [status, profile?.id]);
+        return () => clearInterval(interval);
+    }, [status, profile?.id]);
 
     const makeMatchQueueEntry = async () => {
         const { error } = await supabase
