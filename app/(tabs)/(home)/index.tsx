@@ -41,7 +41,7 @@ export default function HomeScreen() {
                 .eq('id', otherUserId)
                 .single();
 
-            if (error) {
+            if (otherProfileError) {
                 console.error('Error occured in trying to fetch other profile', error);
                 return;
             }
@@ -63,7 +63,6 @@ export default function HomeScreen() {
         enabled: status === 'searching',
         onMatchFound: (match) => {
             setMatch(match);
-            console.log(match);
             setStatus('matched');
         }
     });
