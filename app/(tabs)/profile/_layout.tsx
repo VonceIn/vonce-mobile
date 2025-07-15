@@ -33,8 +33,8 @@ export default function ProfileLayout() {
                         fontWeight: 700,
                         fontSize: 18,
                         fontFamily: 'fontFam-Jakarta700'
-                    },
-                }} 
+                    }
+                }}
             />
         </Stack>
     );

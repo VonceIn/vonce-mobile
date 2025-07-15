@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableWithoutFeedback, Keyboard, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Keyboard, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import Button from '@/components/Button';
 import InputText from '@/components/InputText';
@@ -10,6 +10,7 @@ import { userProfileAtom } from '@/atoms/atoms';
 import * as FileSystem from 'expo-file-system';
 import { Buffer } from 'buffer';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Image } from 'expo-image';
 
 const ProfileSetup = () => {
     const [profile, setProfile] = useAtom(userProfileAtom);
@@ -151,8 +152,8 @@ const ProfileSetup = () => {
                         <View className="p-4 rounded-lg">
                             <Image 
                                 source={{ uri: profile.avatar }}
-                                resizeMode="contain"
-                                className="w-[350px] h-[350px]"
+                                contentFit="contain"
+                                style={{ width: 350, height: 350 }}
                             />
                         </View>
                     </View>
@@ -162,15 +163,15 @@ const ProfileSetup = () => {
                     {profile.avatar === 'default' ? (
                         <Image 
                             source={require('../../../assets/images/default_profile_male.png')}
-                            resizeMode="contain"
-                            className="w-[128px] h-[128px] rounded-full"
+                            contentFit="contain"
+                            style={{ width: 128, height: 128, borderRadius: 64 }}
                         />
                     ) : (
                         <TouchableOpacity onPress={() => setIsModalVisible(true)}>
                             <Image 
                                 source={{ uri: profile.avatar }}
-                                resizeMode="contain"
-                                className="w-[128px] h-[128px] rounded-full"
+                                contentFit="contain"
+                                style={{ width: 128, height: 128, borderRadius: 64 }}
                             />
                         </TouchableOpacity>
                     )}

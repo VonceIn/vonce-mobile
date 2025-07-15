@@ -16,12 +16,20 @@ interface ProfileType {
     bio: string;
 };
 
-export interface MatchType  {
+interface MatchType  {
     id: string;
     user1_id: string;
     user2_id: string;
     create_at: string;
 };
+
+export interface ChatMessageType {
+    id: string;
+    match_id: string;
+    sender_id: string;
+    content: string;
+    created_at: string;
+}
 
 export const isAuthenticatedAtom = atom(false);
 

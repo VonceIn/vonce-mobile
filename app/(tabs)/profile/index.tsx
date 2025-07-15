@@ -1,4 +1,4 @@
-import { View, Text, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import React from 'react';
 import Button from '@/components/Button';
 import Feather from '@expo/vector-icons/Feather';
@@ -8,6 +8,7 @@ import { Link } from 'expo-router';
 import { userProfileAtom } from '@/atoms/atoms';
 import { useAtomValue } from 'jotai';
 import { supabase } from '@/lib/supabase';
+import { Image } from 'expo-image';
 
 const ProfileScreen = () => {
     const profile = useAtomValue(userProfileAtom);
@@ -21,14 +22,14 @@ const ProfileScreen = () => {
                 {profile.avatar == 'default' ? (
                     <Image 
                         source={require('../../../assets/images/default_profile_male.png')}
-                        resizeMode="contain"
-                        className="w-[128px] h-[128px] rounded-full"
+                        contentFit="contain"
+                        style={{ width: 128, height: 128, borderRadius: 64 }}
                     />
                 ) : (
                     <Image 
                         source={{ uri: profile.avatar }}
-                        resizeMode="contain"
-                        className="w-[128px] h-[128px] rounded-full"
+                        contentFit="contain"
+                        style={{ width: 128, height: 128, borderRadius: 64 }}
                     />
                 )}
 

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import InputText from '@/components/InputText';
 import Button from '@/components/Button';
 import { Link } from 'expo-router';
-import Debug from '@/components/Debug';
 import { supabase } from '@/lib/supabase';
 
 export default function Login() {

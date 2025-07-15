@@ -8,11 +8,18 @@ import LottieView from 'lottie-react-native';
 import * as Animatable from 'react-native-animatable';
 import { supabase } from "@/lib/supabase";
 import { useMatchLitstener } from "@/hooks/useMatchListener";
+import { Redirect } from "expo-router";
+import { useRouter } from "expo-router";
 
 export default function HomeScreen() {
+    // return (
+    //     <Redirect href='/(tabs)/chats' />
+    // ); // Only for Dev
+
     const profile = useAtomValue(userProfileAtom);
     const [otherProfile, setOtherProfile] = useAtom(otherProfileAtom);
     const [status, setStatus] = useState<'matched' | 'searching' | 'idle'>('idle');
+    const router = useRouter();
     const [match, setMatch] = useAtom(matchAtom);
 
     useEffect(() => {
@@ -177,6 +184,7 @@ export default function HomeScreen() {
                 <Animatable.View
                     animation="fadeIn"
                     duration={400}
+                    className="gap-4"
                 >
                     <View className="w-[358px] min-h-[100px] items-center justify-center">
                         <Text className="fontFam-Ubuntu700 text-[48px] text-center text-wrap">
@@ -225,7 +233,7 @@ export default function HomeScreen() {
                         </View>
                     </View>
 
-                    <View className="w-full h-[72px] items-center justify-center gap-4 flex-row">
+                    <View className="w-full h-[72px] items-center justify-center gap-4 flex-row mt-4">
                         <Button
                             text="Say Hi" 
                             buttonClassName="w-[136px] h-[48px]" 
@@ -236,6 +244,7 @@ export default function HomeScreen() {
                             text="View Messages" 
                             buttonClassName="w-[210px] h-[48px] bg-[#F5E5E5]" 
                             textClassName="text-[#1C0D0D] fontFam-Jakarta700 text-[16px]"
+                            onPress={() => router.push('/(tabs)/chats')}
                         />
                     </View>
                 </Animatable.View>

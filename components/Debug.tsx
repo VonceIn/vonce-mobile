@@ -50,7 +50,7 @@ const Debug = () => {
     return (
         <>
             <TouchableOpacity 
-                className='absolute bottom-20 right-4 bg-green-400 rounded-xl p-2'
+                className='absolute bottom-[120px] right-4 bg-green-400 rounded-xl p-2'
                 onPress={() => setVisible(true)}
             >
                 <Text className='text-blue-800'>
